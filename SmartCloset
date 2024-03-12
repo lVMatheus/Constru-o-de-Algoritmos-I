@@ -1,0 +1,75 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Produto {
+    private String nome;
+    private int quantidade;
+
+    public Produto(String nome, int quantidade) {
+        this.nome = nome;
+        this.quantidade = quantidade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @Override
+    public String toString() {
+        return nome + ": " + quantidade;
+    }
+}
+
+class Estoque {
+    private Map<String, Produto> produtos;
+
+    public Estoque() {
+        this.produtos = new HashMap<>();
+    }
+
+    public void adicionarProduto(Produto produto) {
+        produtos.put(produto.getNome(), produto);
+    }
+
+    public void removerProduto(String nome) {
+        produtos.remove(nome);
+    }
+
+    public void atualizarQuantidade(String nome, int novaQuantidade) {
+        Produto produto = produtos.get(nome);
+        if (produto != null) {
+            produto.setQuantidade(novaQuantidade);
+        }
+    }
+
+    public void exibirProdutos() {
+        for (Produto produto : produtos.values()) {
+            System.out.println(produto);
+        }
+    }
+}
+
+public class SistemaEstoque {
+    public static void main(String[] args) {
+        Estoque estoque = new Estoque();
+
+        Produto p1 = new Produto("Camiseta", 50);
+        Produto p2 = new Produto("Calça", 30);
+        Produto p3 = new Produto("Meia", 100);
+
+        estoque.adicionarProduto(p1);
+        estoque.adicionarProduto(p2);
+        estoque.adicionarProduto(p3);
+
+        System.out.println("Produtos no estoque:");
+        estoque.exibirProdutos();
+    }
+}
